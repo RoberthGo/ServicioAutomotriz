@@ -1,30 +1,45 @@
+using ServicioAutomotriz.Models;
+
 namespace ServicioAutomotriz
 {
-    public partial class ReplacementDialog : Form
+    public partial class ServiceDialog : Form
     {
-        public ReplacementDialog()
+        public Service Result { get; private set; } = new();
+
+        public ServiceDialog(Service? service = null)
         {
             InitializeComponent();
+
+            if (service is not null)
+            {
+                Result = service;
+                txtName.Text          = service.Name;
+                txtDescription.Text   = service.Description ?? string.Empty;
+                txtCost.Text          = service.Cost.ToString();
+                txtEstimatedTime.Text = service.EstimatedTime?.ToString() ?? string.Empty;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            errorProvider.Clear();
+
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
                 errorProvider.SetError(txtName, "El nombre es obligatorio.");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(txtBrand.Text))
+            if (!decimal.TryParse(txtCost.Text, out decimal cost) || cost < 0)
             {
-                errorProvider.SetError(txtBrand, "La marca es obligatoria.");
+                errorProvider.SetError(txtCost, "Ingresa un costo válido.");
                 return;
             }
-            if (!decimal.TryParse(txtUnitPrice.Text, out decimal price) || price < 0)
-            {
-                errorProvider.SetError(txtUnitPrice, "Ingresa un precio válido.");
-                return;
-            }
-            errorProvider.Clear();
+
+            Result.Name          = txtName.Text.Trim();
+            Result.Description   = string.IsNullOrWhiteSpace(txtDescription.Text) ? null : txtDescription.Text.Trim();
+            Result.Cost          = cost;
+            Result.EstimatedTime = int.TryParse(txtEstimatedTime.Text, out int et) ? et : null;
+
             DialogResult = DialogResult.OK;
         }
 

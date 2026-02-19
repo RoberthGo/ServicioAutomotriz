@@ -1,3 +1,6 @@
+using ServicioAutomotriz.Models;
+using ServicioAutomotriz.Services;
+
 namespace ServicioAutomotriz
 {
     public partial class ServicesForm : Form
@@ -5,12 +8,30 @@ namespace ServicioAutomotriz
         private readonly Color _accent  = Color.FromArgb(88, 166, 255);
         private readonly Color _rowAlt  = Color.FromArgb(28, 35, 51);
         private readonly Color _rowBase = Color.FromArgb(22, 27, 34);
-        private readonly Color _dark   = Color.FromArgb(18, 42, 76);
+        private readonly Color _dark    = Color.FromArgb(18, 42, 76);
+
+        private readonly ServiceService _service = new();
 
         public ServicesForm()
         {
             InitializeComponent();
             ApplyGridStyle();
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            try
+            {
+                var list = _service.GetAll();
+                dgvServices.DataSource = null;
+                dgvServices.DataSource = list;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar servicios:\n{ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ApplyGridStyle()
@@ -32,7 +53,19 @@ namespace ServicioAutomotriz
         private void btnAdd_Click(object sender, EventArgs e)
         {
             using var dlg = new ServiceDialog();
-            if (dlg.ShowDialog() == DialogResult.OK) { }
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    _service.Add(dlg.Result);
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al guardar:\n{ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -43,8 +76,22 @@ namespace ServicioAutomotriz
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            using var dlg = new ServiceDialog();
-            if (dlg.ShowDialog() == DialogResult.OK) { }
+
+            var selected = (Service)dgvServices.SelectedRows[0].DataBoundItem;
+            using var dlg = new ServiceDialog(selected);
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    _service.Update(dlg.Result);
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al actualizar:\n{ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -55,9 +102,24 @@ namespace ServicioAutomotriz
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+
             var result = MessageBox.Show("¿Eliminar el servicio seleccionado?", "Confirmar",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes) { }
+
+            if (result == DialogResult.Yes)
+            {
+                var selected = (Service)dgvServices.SelectedRows[0].DataBoundItem;
+                try
+                {
+                    _service.Delete(selected.ServiceID);
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al eliminar:\n{ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

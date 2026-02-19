@@ -1,6 +1,6 @@
 ﻿namespace ServicioAutomotriz
 {
-    partial class ServicesForm
+    partial class ReplacementsForm
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -12,25 +12,27 @@
 
         private void InitializeComponent()
         {
-            panelTop         = new Panel();
-            lblTitle         = new Label();
-            panelToolbar     = new Panel();
-            btnAdd           = new Button();
-            btnEdit          = new Button();
-            btnDelete        = new Button();
-            panelGrid        = new Panel();
-            dgvServices      = new DataGridView();
-            colID            = new DataGridViewTextBoxColumn();
-            colName          = new DataGridViewTextBoxColumn();
-            colDescription   = new DataGridViewTextBoxColumn();
-            colCost          = new DataGridViewTextBoxColumn();
-            colEstimatedTime = new DataGridViewTextBoxColumn();
-            lblGrid          = new Label();
+            panelTop        = new Panel();
+            lblTitle        = new Label();
+            panelToolbar    = new Panel();
+            btnAdd          = new Button();
+            btnEdit         = new Button();
+            btnDelete       = new Button();
+            panelGrid       = new Panel();
+            lblGrid         = new Label();
+            dgvReplacements = new DataGridView();
+            colID           = new DataGridViewTextBoxColumn();
+            colName         = new DataGridViewTextBoxColumn();
+            colBrand        = new DataGridViewTextBoxColumn();
+            colUnitPrice    = new DataGridViewTextBoxColumn();
+            colCurrentStock = new DataGridViewTextBoxColumn();
+            colMinimumStock = new DataGridViewTextBoxColumn();
+            colSupplier     = new DataGridViewTextBoxColumn();
 
             panelTop.SuspendLayout();
             panelToolbar.SuspendLayout();
             panelGrid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvServices).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvReplacements).BeginInit();
             SuspendLayout();
 
             // panelTop
@@ -48,7 +50,7 @@
             lblTitle.Location = new Point(20, 14);
             lblTitle.Name = "lblTitle";
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "Gestión de Servicios";
+            lblTitle.Text = "Gestión de Refacciones";
 
             // panelToolbar
             panelToolbar.BackColor = Color.FromArgb(28, 35, 51);
@@ -107,7 +109,7 @@
 
             // panelGrid
             panelGrid.BackColor = Color.FromArgb(22, 27, 34);
-            panelGrid.Controls.Add(dgvServices);
+            panelGrid.Controls.Add(dgvReplacements);
             panelGrid.Controls.Add(lblGrid);
             panelGrid.Dock = DockStyle.Fill;
             panelGrid.Name = "panelGrid";
@@ -121,52 +123,55 @@
             lblGrid.Height = 28;
             lblGrid.Name = "lblGrid";
             lblGrid.TabIndex = 1;
-            lblGrid.Text = "Listado de Servicios";
+            lblGrid.Text = "Listado de Refacciones";
             lblGrid.TextAlign = ContentAlignment.MiddleLeft;
 
-            // dgvServices
-            dgvServices.AllowUserToAddRows = false;
-            dgvServices.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvServices.BackgroundColor = Color.FromArgb(22, 27, 34);
-            dgvServices.BorderStyle = BorderStyle.None;
-            dgvServices.Columns.AddRange(new DataGridViewColumn[] { colID, colName, colDescription, colCost, colEstimatedTime });
-            dgvServices.Dock = DockStyle.Fill;
-            dgvServices.Font = new Font("Segoe UI", 10F);
-            dgvServices.MultiSelect = false;
-            dgvServices.Name = "dgvServices";
-            dgvServices.ReadOnly = true;
-            dgvServices.RowTemplate.Height = 34;
-            dgvServices.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvServices.TabIndex = 0;
+            // dgvReplacements
+            dgvReplacements.AllowUserToAddRows = false;
+            dgvReplacements.AutoGenerateColumns = false;
+            dgvReplacements.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvReplacements.BackgroundColor = Color.FromArgb(22, 27, 34);
+            dgvReplacements.BorderStyle = BorderStyle.None;
+            dgvReplacements.Columns.AddRange(new DataGridViewColumn[] { colID, colName, colBrand, colUnitPrice, colCurrentStock, colMinimumStock, colSupplier });
+            dgvReplacements.Dock = DockStyle.Fill;
+            dgvReplacements.Font = new Font("Segoe UI", 10F);
+            dgvReplacements.MultiSelect = false;
+            dgvReplacements.Name = "dgvReplacements";
+            dgvReplacements.ReadOnly = true;
+            dgvReplacements.RowTemplate.Height = 34;
+            dgvReplacements.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvReplacements.TabIndex = 0;
 
             // columns
-            colID.FillWeight = 40F;            colID.HeaderText = "ID";           colID.Name = "colID";           colID.ReadOnly = true;
-            colName.HeaderText = "Nombre";     colName.Name = "colName";          colName.ReadOnly = true;
-            colDescription.HeaderText = "Descripción"; colDescription.Name = "colDescription"; colDescription.ReadOnly = true;
-            colCost.FillWeight = 70F;          colCost.HeaderText = "Costo ($)";  colCost.Name = "colCost";       colCost.ReadOnly = true;
-            colEstimatedTime.FillWeight = 70F; colEstimatedTime.HeaderText = "Tiempo (min)"; colEstimatedTime.Name = "colEstimatedTime"; colEstimatedTime.ReadOnly = true;
+            colID.FillWeight = 40F;              colID.HeaderText = "ID";               colID.Name = "colID";              colID.ReadOnly = true; colID.DataPropertyName = "ReplacementID";
+            colName.HeaderText = "Nombre";       colName.Name = "colName";              colName.ReadOnly = true;           colName.DataPropertyName = "Name";
+            colBrand.FillWeight = 80F;           colBrand.HeaderText = "Marca";         colBrand.Name = "colBrand";        colBrand.ReadOnly = true; colBrand.DataPropertyName = "Brand";
+            colUnitPrice.FillWeight = 70F;       colUnitPrice.HeaderText = "Precio ($)";    colUnitPrice.Name = "colUnitPrice";   colUnitPrice.ReadOnly = true; colUnitPrice.DataPropertyName = "UnitPrice";
+            colCurrentStock.FillWeight = 70F;    colCurrentStock.HeaderText = "Stock actual"; colCurrentStock.Name = "colCurrentStock"; colCurrentStock.ReadOnly = true; colCurrentStock.DataPropertyName = "CurrentStock";
+            colMinimumStock.FillWeight = 70F;    colMinimumStock.HeaderText = "Stock mínimo"; colMinimumStock.Name = "colMinimumStock"; colMinimumStock.ReadOnly = true; colMinimumStock.DataPropertyName = "MinimumStock";
+            colSupplier.HeaderText = "Proveedor"; colSupplier.Name = "colSupplier";     colSupplier.ReadOnly = true;       colSupplier.DataPropertyName = "Supplier";
 
-            // ServicesForm
+            // ReplacementsForm
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(13, 17, 23);
             Controls.Add(panelGrid);
             Controls.Add(panelToolbar);
             Controls.Add(panelTop);
-            Name = "ServicesForm";
+            Name = "ReplacementsForm";
 
             panelTop.ResumeLayout(false);
             panelTop.PerformLayout();
             panelToolbar.ResumeLayout(false);
             panelGrid.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvServices).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvReplacements).EndInit();
             ResumeLayout(false);
         }
 
         private Panel panelTop, panelToolbar, panelGrid;
         private Label lblTitle, lblGrid;
-        private DataGridView dgvServices;
+        private DataGridView dgvReplacements;
         private Button btnAdd, btnEdit, btnDelete;
-        private DataGridViewTextBoxColumn colID, colName, colDescription, colCost, colEstimatedTime;
+        private DataGridViewTextBoxColumn colID, colName, colBrand, colUnitPrice, colCurrentStock, colMinimumStock, colSupplier;
     }
 }
