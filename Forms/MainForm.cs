@@ -19,6 +19,7 @@ namespace ServicioAutomotriz
             OpenChildForm(new ReplacementsForm());
         }
 
+        // Reemplaza el contenido del panel con el formulario hijo recibido
         private void OpenChildForm(Form child)
         {
             foreach (Control c in panelContent.Controls)

@@ -19,6 +19,7 @@ namespace ServicioAutomotriz
             LoadData();
         }
 
+        // Aplica el tema visual oscuro al DataGridView
         private void ApplyGridStyle()
         {
             dgvReplacements.EnableHeadersVisualStyles = false;
@@ -35,6 +36,7 @@ namespace ServicioAutomotriz
             dgvReplacements.GridColor = Color.FromArgb(48, 54, 61);
         }
 
+        // Carga y muestra todas las refacciones en el grid
         private void LoadData()
         {
             try
@@ -53,6 +55,7 @@ namespace ServicioAutomotriz
         private void btnAdd_Click(object sender, EventArgs e)
         {
             using var dlg = new ReplacementDialog();
+            // Guarda solo si el usuario confirmó el diálogo
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -70,6 +73,7 @@ namespace ServicioAutomotriz
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            // Verifica que haya una fila seleccionada antes de editar
             if (dgvReplacements.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selecciona una refacción para modificar.", "Aviso",
@@ -79,6 +83,7 @@ namespace ServicioAutomotriz
 
             var selected = (Replacement)dgvReplacements.SelectedRows[0].DataBoundItem;
             using var dlg = new ReplacementDialog(selected);
+            // Actualiza solo si el usuario confirmó el diálogo
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -96,6 +101,7 @@ namespace ServicioAutomotriz
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            // Verifica que haya una fila seleccionada antes de eliminar
             if (dgvReplacements.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selecciona una refacción para eliminar.", "Aviso",
@@ -106,6 +112,7 @@ namespace ServicioAutomotriz
             var result = MessageBox.Show("¿Eliminar la refacción seleccionada?", "Confirmar",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
+            // Elimina solo si el usuario confirmó
             if (result == DialogResult.Yes)
             {
                 var selected = (Replacement)dgvReplacements.SelectedRows[0].DataBoundItem;

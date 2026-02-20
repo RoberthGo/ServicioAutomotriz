@@ -6,6 +6,7 @@ namespace ServicioAutomotriz
     {
         public Service Result { get; private set; } = new();
 
+        // Si se recibe un servicio existente, precarga los campos para edición
         public ServiceDialog(Service? service = null)
         {
             InitializeComponent();
@@ -24,6 +25,7 @@ namespace ServicioAutomotriz
         {
             errorProvider.Clear();
 
+            // Valida que los campos obligatorios y el costo sean correctos
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
                 errorProvider.SetError(txtName, "El nombre es obligatorio.");
@@ -35,6 +37,7 @@ namespace ServicioAutomotriz
                 return;
             }
 
+            // Asigna los valores validados al resultado
             Result.Name          = txtName.Text.Trim();
             Result.Description   = string.IsNullOrWhiteSpace(txtDescription.Text) ? null : txtDescription.Text.Trim();
             Result.Cost          = cost;
@@ -48,6 +51,7 @@ namespace ServicioAutomotriz
             DialogResult = DialogResult.Cancel;
         }
 
+        // Permite solo dígitos y un único punto decimal
         private void ValidateDecimal(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
@@ -56,6 +60,7 @@ namespace ServicioAutomotriz
                 e.Handled = true;
         }
 
+        // Permite solo dígitos enteros
         private void ValidateInteger(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))

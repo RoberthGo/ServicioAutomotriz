@@ -19,6 +19,7 @@ namespace ServicioAutomotriz
             LoadData();
         }
 
+        // Carga y muestra todos los servicios en el grid
         private void LoadData()
         {
             try
@@ -34,6 +35,7 @@ namespace ServicioAutomotriz
             }
         }
 
+        // Aplica el tema visual oscuro al DataGridView
         private void ApplyGridStyle()
         {
             dgvServices.EnableHeadersVisualStyles = false;
@@ -53,6 +55,7 @@ namespace ServicioAutomotriz
         private void btnAdd_Click(object sender, EventArgs e)
         {
             using var dlg = new ServiceDialog();
+            // Guarda solo si el usuario confirmó el diálogo
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -70,6 +73,7 @@ namespace ServicioAutomotriz
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            // Verifica que haya una fila seleccionada antes de editar
             if (dgvServices.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selecciona un servicio para modificar.", "Aviso",
@@ -79,6 +83,7 @@ namespace ServicioAutomotriz
 
             var selected = (Service)dgvServices.SelectedRows[0].DataBoundItem;
             using var dlg = new ServiceDialog(selected);
+            // Actualiza solo si el usuario confirmó el diálogo
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -96,6 +101,7 @@ namespace ServicioAutomotriz
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            // Verifica que haya una fila seleccionada antes de eliminar
             if (dgvServices.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selecciona un servicio para eliminar.", "Aviso",
@@ -106,6 +112,7 @@ namespace ServicioAutomotriz
             var result = MessageBox.Show("¿Eliminar el servicio seleccionado?", "Confirmar",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
+            // Elimina solo si el usuario confirmó
             if (result == DialogResult.Yes)
             {
                 var selected = (Service)dgvServices.SelectedRows[0].DataBoundItem;

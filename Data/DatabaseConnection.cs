@@ -5,8 +5,10 @@ namespace ServicioAutomotriz.Data
     public static class DatabaseConnection
     {
         // Formato: "Server=HOST;Port=3306;Database=TU_BD;Uid=TU_USER;Pwd=TU_PASSWORD;SslMode=Required; (Para azure)"
+        // Cadena de conexión inicializada una sola vez al arrancar la aplicación
         public static string ConnectionString { get; } = BuildConnectionString();
 
+        // Lee la cadena de conexión desde appsettings.json
         private static string BuildConnectionString()
         {
             IConfiguration config = new ConfigurationBuilder()

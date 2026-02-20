@@ -5,12 +5,14 @@ namespace ServicioAutomotriz.Services
 {
     public class ServiceService
     {
+        // Retorna todos los servicios ordenados por nombre
         public List<Service> GetAll()
         {
             using var db = new AppDbContext();
             return db.Services.OrderBy(s => s.Name).ToList();
         }
 
+        // Agrega un nuevo servicio a la base de datos
         public void Add(Service service)
         {
             using var db = new AppDbContext();
@@ -18,6 +20,7 @@ namespace ServicioAutomotriz.Services
             db.SaveChanges();
         }
 
+        // Actualiza los datos de un servicio existente
         public void Update(Service service)
         {
             using var db = new AppDbContext();
@@ -25,6 +28,7 @@ namespace ServicioAutomotriz.Services
             db.SaveChanges();
         }
 
+        // Elimina el servicio solo si existe
         public void Delete(int id)
         {
             using var db = new AppDbContext();

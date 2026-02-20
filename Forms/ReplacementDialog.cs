@@ -6,6 +6,7 @@ namespace ServicioAutomotriz
     {
         public Replacement Result { get; private set; } = new();
 
+        // Si se recibe una refacción existente, precarga los campos para edición
         public ReplacementDialog(Replacement? replacement = null)
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace ServicioAutomotriz
         {
             errorProvider.Clear();
 
+            // Valida que los campos obligatorios y el precio sean correctos
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
                 errorProvider.SetError(txtName, "El nombre es obligatorio.");
@@ -42,6 +44,7 @@ namespace ServicioAutomotriz
                 return;
             }
 
+            // Asigna los valores validados al resultado
             Result.Name         = txtName.Text.Trim();
             Result.Brand        = txtBrand.Text.Trim();
             Result.UnitPrice    = price;
@@ -57,6 +60,7 @@ namespace ServicioAutomotriz
             DialogResult = DialogResult.Cancel;
         }
 
+        // Permite solo dígitos y un único punto decimal
         private void ValidateDecimal(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
@@ -65,6 +69,7 @@ namespace ServicioAutomotriz
                 e.Handled = true;
         }
 
+        // Permite solo dígitos enteros
         private void ValidateInteger(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
